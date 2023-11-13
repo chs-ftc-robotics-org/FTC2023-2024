@@ -2,6 +2,7 @@ package chsftc;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.util.ArrayList;
@@ -30,10 +31,10 @@ public class Drivetrain extends Subsystem {
         backRight = opMode.hardwareMap.get(DcMotor.class, "back_right");
 
         // Use motor.setDirection(DcMotor.Direction.REVERSE) to reverse a motor if needed
-        frontLeft.setDirection(DcMotor.Direction.FORWARD);
-        frontRight.setDirection(DcMotor.Direction.REVERSE);
-        backLeft.setDirection(DcMotor.Direction.FORWARD);
-        backRight.setDirection(DcMotor.Direction.REVERSE);
+        frontLeft.setDirection(DcMotor.Direction.REVERSE);
+        frontRight.setDirection(DcMotor.Direction.FORWARD);
+        backLeft.setDirection(DcMotor.Direction.REVERSE);
+        backRight.setDirection(DcMotor.Direction.FORWARD);
     }
 
     // Make the robot halt
@@ -43,7 +44,7 @@ public class Drivetrain extends Subsystem {
     }
 
     public void move(double power) {
-        power *= 3/5;
+        power *= 3.0/5.0;
         frontLeft.setPower(power);
         frontRight.setPower(power);
         backLeft.setPower(power);
@@ -71,7 +72,7 @@ public class Drivetrain extends Subsystem {
     /* Positive power: Move right
        Negative power: Move left */
     public void strafe(double power) {
-        power *= 3/5;
+        power *= 3.0/5.0;
         frontLeft.setPower(power);
         frontRight.setPower(-power);
         backLeft.setPower(-power);
@@ -100,10 +101,10 @@ public class Drivetrain extends Subsystem {
             backLeftPower   /= max;
             backRightPower  /= max;
         }
-        frontRightPower *= 3/5;
-        frontLeftPower  *= 3/5;
-        backLeftPower   *= 3/5;
-        backRightPower  *= 3/5;
+        frontRightPower *= 3.0/5.0;
+        frontLeftPower  *= 3.0/5.0;
+        backLeftPower   *= 3.0/5.0;
+        backRightPower  *= 3.0/5.0;
 
         frontLeft.setPower(frontLeftPower);
         frontRight.setPower(frontRightPower);
@@ -116,10 +117,10 @@ public class Drivetrain extends Subsystem {
         //what
     }
     public void testIndividual(double fl, double fr, double bl, double br){
-        fl *= 3/5;
-        fr *= 3/5;
-        bl *= 3/5;
-        br *= 3/5;
+        fl *= 3.0/5.0;
+        fr *= 3.0/5.0;
+        bl *= 3.0/5.0;
+        br *= 3.0/5.0;
         frontLeft.setPower(fl);
         frontRight.setPower(fr);
         backLeft.setPower(bl);

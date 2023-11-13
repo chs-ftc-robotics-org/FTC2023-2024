@@ -21,7 +21,11 @@ public class MotorTest extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            drivetrain.move(gamepad1.left_stick_x);
+            // drivetrain.move(gamepad1.left_stick_x);
+            drivetrain.frontLeft.setPower(gamepad1.left_stick_x);
+            drivetrain.frontRight.setPower(gamepad1.left_stick_y);
+            drivetrain.backLeft.setPower(gamepad1.right_stick_x);
+            drivetrain.backRight.setPower(gamepad1.right_stick_y);
             telemetry.update();
         }
     }
