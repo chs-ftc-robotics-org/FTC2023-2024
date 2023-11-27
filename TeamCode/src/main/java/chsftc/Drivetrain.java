@@ -10,6 +10,8 @@ import java.util.ArrayList;
 public class Drivetrain extends Subsystem {
     // Drivetrain is the class we will use to control the robot's movement in other files
     // Define variables used
+    private final double REDUCE = 2.0 / 5.0;
+
     private LinearOpMode opMode;
 
     // Define motor variables
@@ -44,7 +46,7 @@ public class Drivetrain extends Subsystem {
     }
 
     public void move(double power) {
-        power *= 3.0/5.0;
+        power *= REDUCE;
         frontLeft.setPower(power);
         frontRight.setPower(power);
         backLeft.setPower(power);
@@ -55,10 +57,10 @@ public class Drivetrain extends Subsystem {
         powers[3] = power;
     }
 
-    /* Positive power: Turn right
+    /* Positive power: Turn righ3/
        Negative power: Turn left */
     public void turn(double power) {
-        power *= 3/5;
+        power *= REDUCE;
         frontLeft.setPower(power);
         frontRight.setPower(-power);
         backLeft.setPower(power);
@@ -72,7 +74,7 @@ public class Drivetrain extends Subsystem {
     /* Positive power: Move right
        Negative power: Move left */
     public void strafe(double power) {
-        power *= 3.0/5.0;
+        power *= REDUCE;
         frontLeft.setPower(power);
         frontRight.setPower(-power);
         backLeft.setPower(-power);
@@ -101,10 +103,10 @@ public class Drivetrain extends Subsystem {
             backLeftPower   /= max;
             backRightPower  /= max;
         }
-        frontRightPower *= 3.0/5.0;
-        frontLeftPower  *= 3.0/5.0;
-        backLeftPower   *= 3.0/5.0;
-        backRightPower  *= 3.0/5.0;
+        frontRightPower *= REDUCE;
+        frontLeftPower  *= REDUCE;
+        backLeftPower   *= REDUCE;
+        backRightPower  *= REDUCE;
 
         frontLeft.setPower(frontLeftPower);
         frontRight.setPower(frontRightPower);
@@ -117,10 +119,10 @@ public class Drivetrain extends Subsystem {
         //what
     }
     public void testIndividual(double fl, double fr, double bl, double br){
-        fl *= 3.0/5.0;
-        fr *= 3.0/5.0;
-        bl *= 3.0/5.0;
-        br *= 3.0/5.0;
+        fl *= REDUCE;
+        fr *= REDUCE;
+        bl *= REDUCE;
+        br *= REDUCE;
         frontLeft.setPower(fl);
         frontRight.setPower(fr);
         backLeft.setPower(bl);

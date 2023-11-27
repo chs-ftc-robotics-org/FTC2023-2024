@@ -6,23 +6,25 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import chsftc.Drivetrain;
 
-@Autonomous(name="Robot: Auto Drive To Line", group="Auto")
+@Autonomous(name="Autonomous Check", group="Auto")
 public class Automonous extends LinearOpMode {
     public Drivetrain dt = new Drivetrain();
-    public ElapsedTime timer = new ElapsedTime();
+    public ElapsedTime timer;
 
     @Override
     public void runOpMode() throws InterruptedException {
         dt.initialize(this);
-        ElapsedTime timer = new ElapsedTime();
+        timer = new ElapsedTime();
         waitForStart();
-
 
         timer.reset();
         while(opModeIsActive()) {
             if(timer.seconds() < 3) {
-                dt.move(0.2);
+                dt.move(0.4);
+                telemetry.addData("Timer", timer.toString());
                 telemetry.update();
+            } else {
+                dt.move(0);
             }
         }
     }
