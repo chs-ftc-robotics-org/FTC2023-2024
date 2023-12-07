@@ -12,8 +12,6 @@ public class Drivetrain extends Subsystem {
     // Define variables used
     private final double REDUCE = 2.0 / 5.0;
 
-    private LinearOpMode opMode;
-
     // Define motor variables
     public DcMotor frontLeft;
     public DcMotor frontRight;
@@ -25,8 +23,6 @@ public class Drivetrain extends Subsystem {
     // Get the robot's motors from the hardware map
     @Override
     public void initialize(LinearOpMode opMode) {
-        this.opMode = opMode;
-
         frontLeft = opMode.hardwareMap.get(DcMotor.class, "front_left");
         frontRight = opMode.hardwareMap.get(DcMotor.class, "front_right");
         backLeft = opMode.hardwareMap.get(DcMotor.class, "back_left");

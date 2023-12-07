@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import chsftc.Robot;
 
 /*
  * This file contains an example of a Linear "OpMode".
@@ -64,6 +65,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 import chsftc.Drivetrain;
+import chsftc.Robot;
 
 @TeleOp(name="Initial Linear OpMode", group="Linear OpMode")
 //@Disabled
@@ -71,25 +73,14 @@ import chsftc.Drivetrain;
 // DO NOT MODIFY UNTIL THE chsftc PACKAGE IS FINISHED
 public class InitialLinearOp extends LinearOpMode {
 
-    Drivetrain drivetrain = new Drivetrain();
+    public Robot robot;
 
     // Declare OpMode members for each of the 4 motors.
     private ElapsedTime runtime = new ElapsedTime();
-    //private DcMotor leftFrontDrive = null;
-    //private DcMotor leftBackDrive = null;
-    //private DcMotor rightFrontDrive = null;
-    //private DcMotor rightBackDrive = null;
 
     @Override
     public void runOpMode() {
-
-        // Initialize the hardware variables. Note that the strings used here must correspond
-        // to the names assigned during the robot configuration step on the DS or RC devices.
-        // leftFrontDrive  = hardwareMap.get(DcMotor.class, "left_front_drive");
-        // leftBackDrive  = hardwareMap.get(DcMotor.class, "left_back_drive");
-        // rightFrontDrive = hardwareMap.get(DcMotor.class, "right_front_drive");
-        // rightBackDrive = hardwareMap.get(DcMotor.class, "right_back_drive");
-        drivetrain.initialize(this);
+        robot = new Robot(this);
 
         // ########################################################################################
         // !!!            IMPORTANT Drive Information. Test your motor directions.            !!!!!
@@ -111,65 +102,11 @@ public class InitialLinearOp extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            drivetrain.omniMove(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
-            /*double max;
-
-            // POV Mode uses left joystick to go forward & strafe, and right joystick to rotate.
-            double axial   = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
-            double lateral =  gamepad1.left_stick_x;
-            double yaw     =  gamepad1.right_stick_x;
-
-            // Combine the joystick requests for each axis-motion to determine each wheel's power.
-            // Set up a variable for each drive wheel to save the power level for telemetry.
-            double leftFrontPower  = axial + lateral + yaw;
-            double rightFrontPower = axial - lateral - yaw;
-            double leftBackPower   = axial - lateral + yaw;
-            double rightBackPower  = axial + lateral - yaw;
-
-            // Normalize the values so no wheel power exceeds 100%
-            // This ensures that the robot maintains the desired motion.
-            max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
-            max = Math.max(max, Math.abs(leftBackPower));
-            max = Math.max(max, Math.abs(rightBackPower));
-
-            if (max > 1.0) {
-                leftFrontPower  /= max;
-                rightFrontPower /= max;
-                leftBackPower   /= max;
-                rightBackPower  /= max;
-            }
-
-            // This is test code:
-            //
-            // Uncomment the following code to test your motor directions.
-            // Each button should make the corresponding motor run FORWARD.
-            //   1) First get all the motors to take to correct positions on the robot
-            //      by adjusting your Robot Configuration if necessary.
-            //   2) Then make sure they run in the correct direction by modifying the
-            //      the setDirection() calls above.
-            // Once the correct motors move in the correct direction re-comment this code.
-
-            /*
-            leftFrontPower  = gamepad1.x ? 1.0 : 0.0;  // X gamepad
-            leftBackPower   = gamepad1.a ? 1.0 : 0.0;  // A gamepad
-            rightFrontPower = gamepad1.y ? 1.0 : 0.0;  // Y gamepad
-            rightBackPower  = gamepad1.b ? 1.0 : 0.0;  // B gamepad
-            */
-            /*
-            // Send calculated power to wheels
-            leftFrontDrive.setPower(leftFrontPower);
-            rightFrontDrive.setPower(rightFrontPower);
-            leftBackDrive.setPower(leftBackPower);
-            rightBackDrive.setPower(rightBackPower);
-
-            // Show the elapsed game time and wheel power.
+            robot.drivetrain.omniMove(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
             telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
-            telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftBackPower, rightBackPower);
-            */
-            telemetry.addData("Status", "Run Time: " + runtime.toString());
-            telemetry.addData("Front left/Right", "%4.2f, %4.2f", drivetrain.powers[0], drivetrain.powers[1]);
-            telemetry.addData("Back  left/Right", "%4.2f, %4.2f", drivetrain.powers[2], drivetrain.powers[3]);
+            telemetry.addData("Front left/Right", "%4.2f, %4.2f", robot.drivetrain.powers[0], robot.drivetrain.powers[1]);
+            telemetry.addData("Back  left/Right", "%4.2f, %4.2f", robot.drivetrain.powers[2], robot.drivetrain.powers[3]);
+            telemetry.addData("Left bar", gamepad2.left_bumper);
             telemetry.update();
         }
     }}

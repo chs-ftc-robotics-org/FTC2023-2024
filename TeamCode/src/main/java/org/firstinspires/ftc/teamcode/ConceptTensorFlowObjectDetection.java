@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -41,6 +42,8 @@ import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
 import java.util.List;
+
+import chsftc.Drivetrain;
 
 /*
  * This OpMode illustrates the basics of TensorFlow Object Detection,
@@ -75,6 +78,8 @@ public class ConceptTensorFlowObjectDetection extends LinearOpMode {
      */
     private VisionPortal visionPortal;
 
+    public Drivetrain dt = new Drivetrain();
+
     @Override
     public void runOpMode() {
 
@@ -86,6 +91,8 @@ public class ConceptTensorFlowObjectDetection extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
+        dt.initialize(this);
+
         if (opModeIsActive()) {
             while (opModeIsActive()) {
 
@@ -95,11 +102,12 @@ public class ConceptTensorFlowObjectDetection extends LinearOpMode {
                 telemetry.update();
 
                 // Save CPU resources; can resume streaming when needed.
-                if (gamepad1.dpad_down) {
+                /*if (gamepad1.dpad_down) {
                     visionPortal.stopStreaming();
                 } else if (gamepad1.dpad_up) {
                     visionPortal.resumeStreaming();
                 }
+                */
 
                 // Share the CPU.
                 sleep(20);
@@ -182,6 +190,9 @@ public class ConceptTensorFlowObjectDetection extends LinearOpMode {
 
         List<Recognition> currentRecognitions = tfod.getRecognitions();
         telemetry.addData("# Objects Detected", currentRecognitions.size());
+
+        if(currentRecognitions.size() > 0) dt.move(0.3);
+        else dt.move(0.0);
 
         // Step through the list of recognitions and display info for each one.
         for (Recognition recognition : currentRecognitions) {
