@@ -9,8 +9,16 @@ public class Robot {
     public Drivetrain drivetrain = new Drivetrain();
     public Arm arm = new Arm();
 
+    public Subsystem[] subsystems = {
+        drivetrain,
+        arm,
+    };
+
     public Robot(LinearOpMode opMode) {
-        drivetrain.initialize(opMode);
-        arm.initialize(opMode);
+        for(Subsystem sub : subsystems) sub.initialize(opMode);
+    }
+
+    public void disableAll() {
+        for(Subsystem sub : subsystems) sub.disable();
     }
 }

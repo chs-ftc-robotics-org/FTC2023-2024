@@ -103,10 +103,11 @@ public class InitialLinearOp extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
             robot.drivetrain.omniMove(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
+            robot.arm.moveWrist(gamepad2.left_trigger, gamepad2.right_trigger);
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", robot.drivetrain.powers[0], robot.drivetrain.powers[1]);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", robot.drivetrain.powers[2], robot.drivetrain.powers[3]);
-            telemetry.addData("Left bar", gamepad2.left_bumper);
+            telemetry.addData("Wrist ", robot.arm.powers[1]);
             telemetry.update();
         }
     }}
