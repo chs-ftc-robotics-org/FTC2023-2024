@@ -7,7 +7,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Arm extends Subsystem {
     public DcMotor arm;
     public DcMotor wrist;
-    // public Servo claw; # comment
+    public Servo clawLeft;
+    public Servo clawRight;
 
     // public double
     public double[] powers = {0, 0};
@@ -16,6 +17,8 @@ public class Arm extends Subsystem {
     public void initialize(LinearOpMode opMode) {
         arm = opMode.hardwareMap.get(DcMotor.class, "arm_motor");
         wrist = opMode.hardwareMap.get(DcMotor.class, "wrist_motor");
+        clawLeft = opMode.hardwareMap.get(Servo.class, "claw_left");
+        clawRight = opMode.hardwareMap.get(Servo.class, "claw_right");
         arm.setDirection(DcMotor.Direction.FORWARD);
         wrist.setDirection(DcMotor.Direction.FORWARD);
     }
@@ -27,8 +30,16 @@ public class Arm extends Subsystem {
         wrist.setPower(0.0);
     }
 
-    public void moveArm(double power) {
-
+    public void moveArm(boolean left, boolean right) {
+        if(left && !right) {
+            arm.setPower(-0.3);
+        }
+        else if(!left && right) {
+            arm.setPower(0.1);
+        }
+        else {
+            arm.setPower(0.0);
+        }
     }
 
     public void moveWrist(double left, double right) {
@@ -37,5 +48,18 @@ public class Arm extends Subsystem {
         double power = left - right;
         powers[1] = power;
         wrist.setPower(power);
+    }
+
+    public void moveClaws(boolean gamepadX, boolean gamepadA) {
+        if(!(gamepadX && gamepadA)) {
+            if(gamepadX) {
+                //clawLeft.setPosition(0.4);
+                clawRight.setPosition(1);
+            }
+            if(gamepadA) {
+                //clawLeft.setPosition(0.6);
+                clawRight.setPosition(0);
+            }
+        }
     }
 }
