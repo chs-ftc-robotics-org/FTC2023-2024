@@ -15,6 +15,7 @@ public class Arm extends Subsystem {
 
     @Override
     public void initialize(LinearOpMode opMode) {
+        this.opMode = opMode;
         arm = opMode.hardwareMap.get(DcMotor.class, "arm_motor");
         wrist = opMode.hardwareMap.get(DcMotor.class, "wrist_motor");
         clawLeft = opMode.hardwareMap.get(Servo.class, "claw_left");
@@ -53,11 +54,11 @@ public class Arm extends Subsystem {
     public void moveClaws(boolean gamepadX, boolean gamepadA) {
         if(!(gamepadX && gamepadA)) {
             if(gamepadX) {
-                //clawLeft.setPosition(0.4);
+                clawLeft.setPosition(0);
                 clawRight.setPosition(1);
             }
             if(gamepadA) {
-                //clawLeft.setPosition(0.6);
+                clawLeft.setPosition(1);
                 clawRight.setPosition(0);
             }
         }

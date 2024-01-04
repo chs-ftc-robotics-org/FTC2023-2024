@@ -106,6 +106,8 @@ public class InitialLinearOp extends LinearOpMode {
             robot.arm.moveWrist(gamepad2.left_trigger, gamepad2.right_trigger);
             robot.arm.moveArm(gamepad2.left_bumper, gamepad2.right_bumper);
             robot.arm.moveClaws(gamepad2.x, gamepad2.a);
+            telemetry.addData("Left servo: ", robot.arm.clawLeft.getPosition());
+            telemetry.addData("Right servo: ", robot.arm.clawRight.getPosition());
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Front left/Right", "%4.2f, %4.2f", robot.drivetrain.powers[0], robot.drivetrain.powers[1]);
             telemetry.addData("Back  left/Right", "%4.2f, %4.2f", robot.drivetrain.powers[2], robot.drivetrain.powers[3]);
