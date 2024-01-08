@@ -8,10 +8,12 @@ public class Robot {
     // Leave this alone for now
     public Drivetrain drivetrain = new Drivetrain();
     public Arm arm = new Arm();
+    public PlaneLauncher launcher = new PlaneLauncher();
 
     public Subsystem[] subsystems = {
         drivetrain,
         arm,
+        launcher
     };
 
     public Robot(LinearOpMode opMode) {
