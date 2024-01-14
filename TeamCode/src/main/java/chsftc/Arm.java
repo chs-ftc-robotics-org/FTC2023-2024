@@ -21,6 +21,7 @@ public class Arm extends Subsystem {
         clawLeft = opMode.hardwareMap.get(Servo.class, "claw_left");
         clawRight = opMode.hardwareMap.get(Servo.class, "claw_right");
         arm.setDirection(DcMotor.Direction.FORWARD);
+        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         wrist.setDirection(DcMotor.Direction.FORWARD);
     }
 
@@ -36,7 +37,7 @@ public class Arm extends Subsystem {
             arm.setPower(-0.3);
         }
         else if(!left && right) {
-            arm.setPower(0.1);
+            arm.setPower(0.3);
         }
         else {
             arm.setPower(0.0);
@@ -44,7 +45,7 @@ public class Arm extends Subsystem {
     }
 
     public void moveWrist(double left, double right) {
-        left = Math.min(left, 0.2);
+        left = Math.min(left, 0.3);
         right = Math.min(right, 0.2);
         double power = left - right;
         powers[1] = power;
@@ -54,8 +55,8 @@ public class Arm extends Subsystem {
     public void moveClaws(boolean gamepadX, boolean gamepadA) {
         if(!(gamepadX && gamepadA)) {
             if(gamepadX) {
-                clawLeft.setPosition(0);
-                clawRight.setPosition(1);
+                clawLeft.setPosition(0.5);
+                clawRight.setPosition(0.5);
             }
             if(gamepadA) {
                 clawLeft.setPosition(1);

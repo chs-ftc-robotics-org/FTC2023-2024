@@ -30,7 +30,7 @@ public class PlaneLauncher extends Subsystem {
         if(pressed) {
             launchTimer.reset();
             running = true;
-            launcher.setPower(1.0);
+            launcher.setPower(-1.0);
         }
     }
 }
