@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Drivetrain extends Subsystem {
     // Drivetrain is the class we will use to control the robot's movement in other files
     // Define variables used
-    private final double REDUCE = 2.0 / 5.0;
+    private final double REDUCE = 3.0 / 5.0;
 
     // Define motor variables
     public DcMotor frontLeft;

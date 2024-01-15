@@ -102,9 +102,12 @@ public class InitialLinearOp extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
+            boolean armDown = gamepad2.right_trigger > 0;
+            double wristUp = gamepad2.left_bumper ? 1.0 : 0.0;
+            int power = gamepad2.y ? 2 : 1;
             robot.drivetrain.omniMove(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
-            robot.arm.moveWrist(gamepad2.left_trigger, gamepad2.right_trigger);
-            robot.arm.moveArm(gamepad2.left_bumper, gamepad2.right_bumper);
+            robot.arm.moveWrist(wristUp, gamepad2.left_trigger);
+            robot.arm.moveArm(gamepad2.right_bumper, armDown, power);
             robot.arm.moveClaws(gamepad2.x, gamepad2.a);
             robot.launcher.launch();
             telemetry.addData("Left servo: ", robot.arm.clawLeft.getPosition());

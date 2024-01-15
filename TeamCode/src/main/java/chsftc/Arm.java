@@ -32,12 +32,12 @@ public class Arm extends Subsystem {
         wrist.setPower(0.0);
     }
 
-    public void moveArm(boolean left, boolean right) {
+    public void moveArm(boolean left, boolean right, int mult) {
         if(left && !right) {
-            arm.setPower(-0.3);
+            arm.setPower(-0.3 * mult);
         }
         else if(!left && right) {
-            arm.setPower(0.3);
+            arm.setPower(0.3 * mult);
         }
         else {
             arm.setPower(0.0);
